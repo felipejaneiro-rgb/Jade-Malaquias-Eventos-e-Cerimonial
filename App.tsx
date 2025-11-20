@@ -85,6 +85,15 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Specific handler for "Ver meu trabalho" to ensure smooth scroll
+  const handleScrollToPortfolio = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const element = document.getElementById('portfolio');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Testimonial Autoplay
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -213,7 +222,13 @@ function App() {
               Transformo a ansiedade do planejamento em tranquilidade, garantindo que cada detalhe, do cronograma à decoração, reflita a essência única de quem celebra. A perfeição mora nos detalhes, e eu cuido de todos eles para você.
             </p>
             <div className="pt-4">
-              <Button variant="text" href="#portfolio">Ver meu trabalho</Button>
+              <Button 
+                variant="text" 
+                href="#portfolio" 
+                onClick={handleScrollToPortfolio}
+              >
+                Ver meu trabalho
+              </Button>
             </div>
           </div>
         </div>
