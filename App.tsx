@@ -163,9 +163,9 @@ function App() {
       <section className="relative h-[85vh] w-full overflow-hidden flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://picsum.photos/seed/weddinghero/1920/1080?grayscale" 
-            alt="Decoração de casamento romântico e sofisticado em preto e branco representando a realização de sonhos" 
-            className="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80" 
+            alt="Casal em celebração de casamento, momento emocionante e sofisticado" 
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-black/40 dark:bg-black/60 transition-colors duration-500"></div>
         </div>
@@ -202,17 +202,29 @@ function App() {
       {/* 2. About Section */}
       <section id="sobre" className="py-20 px-6 bg-white dark:bg-neutral-900 transition-colors duration-500">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div className="md:order-1">
+          <motion.div 
+            className="md:order-1"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
+          >
             <div className="relative">
               <div className="absolute -top-4 -left-4 w-full h-full border border-jade-primary rounded-sm z-0"></div>
               <img 
-                src="https://picsum.photos/seed/jadeportrait/600/800" 
-                alt="Jade Malaquias, especialista em Assessoria de Eventos e Cerimonial com 13 anos de experiência" 
+                src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=600&q=80" 
+                alt="Jade Malaquias, mulher negra especialista em Assessoria de Eventos e Cerimonial com 13 anos de experiência" 
                 className="relative z-10 w-full rounded-sm shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>
-          </div>
-          <div className="md:order-2 space-y-6">
+          </motion.div>
+          <motion.div 
+            className="md:order-2 space-y-6"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8 }}
+          >
             <span className="text-jade-primary text-sm font-bold tracking-[0.2em] uppercase">Sobre Mim</span>
             <h2 className="font-serif text-4xl md:text-5xl text-jade-dark dark:text-white">13 Anos de Paixão por Realizar Sonhos</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-light text-lg">
@@ -230,14 +242,20 @@ function App() {
                 Ver meu trabalho
               </Button>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 3. Services Section */}
       <section id="servicos" className="py-20 px-6 bg-jade-rose dark:bg-neutral-950 transition-colors duration-500">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
+          <motion.div 
+            className="text-center mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+          >
              <h2 className="font-serif text-4xl text-jade-dark dark:text-white mb-4">Nossos Serviços</h2>
              <div className="w-16 h-0.5 bg-jade-primary mx-auto mb-8"></div>
              
@@ -257,7 +275,7 @@ function App() {
                  </button>
                ))}
              </div>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 min-h-[400px] items-start">
             <AnimatePresence mode="popLayout">
@@ -266,6 +284,8 @@ function App() {
                   layout
                   key={service.id}
                   initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
@@ -305,7 +325,13 @@ function App() {
            
            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
              {/* Connecting Line (Desktop) */}
-             <div className="hidden md:block absolute top-12 left-[12.5%] w-[75%] h-0.5 bg-jade-primary z-0"></div>
+             <motion.div 
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="hidden md:block absolute top-12 left-[12.5%] w-[75%] h-0.5 bg-jade-primary z-0 origin-left"
+             />
 
              {[
                { icon: Phone, title: "Reunião Inicial", desc: "Entendemos seus sonhos e expectativas." },
@@ -334,16 +360,35 @@ function App() {
 
       {/* 5. Portfolio Section (3D Carousel) */}
       <section id="portfolio" className="py-24 bg-zinc-50 dark:bg-black transition-colors duration-500 overflow-hidden">
-         <div className="text-center mb-12 px-6">
+         <motion.div 
+           className="text-center mb-12 px-6"
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-50px" }}
+           transition={{ duration: 0.6 }}
+         >
             <h2 className="font-serif text-4xl md:text-5xl text-jade-dark dark:text-white italic mb-2">Portfólio</h2>
             <p className="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-xs">Momentos reais, emoções eternas</p>
-         </div>
-         <PortfolioCarousel items={PORTFOLIO_IMAGES} />
+         </motion.div>
+         <motion.div
+           initial={{ opacity: 0 }}
+           whileInView={{ opacity: 1 }}
+           viewport={{ once: true, margin: "-100px" }}
+           transition={{ duration: 0.8 }}
+         >
+           <PortfolioCarousel items={PORTFOLIO_IMAGES} />
+         </motion.div>
       </section>
 
       {/* 6. Testimonials Section */}
       <section className="py-20 px-6 bg-jade-primary/5 dark:bg-jade-primary/10 transition-colors duration-500">
-        <div className="max-w-4xl mx-auto text-center">
+        <motion.div 
+          className="max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8 }}
+        >
            <Heart className="w-10 h-10 text-jade-primary mx-auto mb-8 fill-current opacity-50" />
            
            <div 
@@ -397,26 +442,46 @@ function App() {
                />
              ))}
            </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 7. Secondary CTA */}
       <section className="py-24 px-6 bg-cover bg-center bg-fixed relative flex items-center justify-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1519225464466-c6c38f301316?auto=format&fit=crop&w=1920&q=80')` }}>
         <div className="absolute inset-0 bg-jade-dark/70 dark:bg-black/80 transition-colors duration-500"></div>
-        <div className="relative z-10 text-center max-w-3xl mx-auto text-white">
+        <motion.div 
+          className="relative z-10 text-center max-w-3xl mx-auto text-white"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="font-serif text-3xl md:text-5xl mb-6 italic">
             "Quer viver o casamento dos seus sonhos com tranquilidade e perfeição em cada detalhe?"
           </h2>
           <Button href={CONTACT_INFO.whatsappLink} variant="primary">
             Fale com a Jade
           </Button>
-        </div>
+        </motion.div>
       </section>
 
       {/* 8. FAQ */}
       <section className="py-20 px-6 bg-white dark:bg-neutral-900 transition-colors duration-500 max-w-3xl mx-auto">
-        <h2 className="font-serif text-3xl text-center mb-12 text-jade-dark dark:text-white">Dúvidas Frequentes</h2>
-        <div className="space-y-4">
+        <motion.h2 
+          className="font-serif text-3xl text-center mb-12 text-jade-dark dark:text-white"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          Dúvidas Frequentes
+        </motion.h2>
+        <motion.div 
+          className="space-y-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           {FAQS.map((faq, idx) => (
             <div key={idx} className="border-b border-gray-100 dark:border-gray-800 pb-4">
               <button 
@@ -442,7 +507,7 @@ function App() {
               </AnimatePresence>
             </div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Scroll to Top Button */}
@@ -463,7 +528,13 @@ function App() {
 
       {/* 9. Footer */}
       <footer className="bg-jade-dark dark:bg-black text-jade-secondary py-16 px-6 transition-colors duration-500">
-         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 items-center text-center md:text-left">
+         <motion.div 
+           className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 items-center text-center md:text-left"
+           initial={{ opacity: 0 }}
+           whileInView={{ opacity: 1 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.8 }}
+         >
             <div>
                <h3 className="font-serif text-2xl text-white mb-2">Jade Malaquias</h3>
                <p className="text-xs tracking-widest uppercase opacity-70">Assessoria & Cerimonial</p>
@@ -494,7 +565,7 @@ function App() {
                <p>&copy; {new Date().getFullYear()} Jade Malaquias.</p>
                <p>Todos os direitos reservados.</p>
             </div>
-         </div>
+         </motion.div>
       </footer>
 
       {/* Modals */}
