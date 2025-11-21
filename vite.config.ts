@@ -7,5 +7,5 @@ export default defineConfig({
   // IMPORTANTE: Substitua 'nome-do-repositorio' pelo nome exato do seu repositório no GitHub.
   // Exemplo: se seu repo é 'jade-eventos', use base: '/jade-eventos/'
   // Se for usar um domínio personalizado (ex: www.jade.com), remova esta linha ou use base: '/'
-  base: '/nome-do-repositorio/',
+  base: '/Jade-Malaquias-Eventos-e-Cerimonial/',
 })
