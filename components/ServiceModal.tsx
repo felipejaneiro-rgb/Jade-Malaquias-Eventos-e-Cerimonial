@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2 } from 'lucide-react';
-import { Service } from '../types';
+import { Service, UIContent } from '../types';
 import { Button } from './Button';
 import { CONTACT_INFO } from '../constants';
 
@@ -9,9 +9,10 @@ interface ServiceModalProps {
   isOpen: boolean;
   onClose: () => void;
   service: Service | null;
+  labels: UIContent['modal'];
 }
 
-export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service }) => {
+export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, service, labels }) => {
   if (!service) return null;
 
   return (
@@ -55,7 +56,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, ser
                 {service.fullDescription}
               </p>
 
-              <h3 className="font-serif text-xl mb-4 text-jade-primary">O que está incluso:</h3>
+              <h3 className="font-serif text-xl mb-4 text-jade-primary">{labels.includes}</h3>
               <ul className="space-y-3 mb-8">
                 {service.includes.map((item, index) => (
                   <li key={index} className="flex items-start text-gray-700 dark:text-gray-300">
@@ -66,15 +67,15 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, ser
               </ul>
 
               <div className="bg-jade-rose/30 dark:bg-neutral-700/50 p-6 rounded-lg mb-6 transition-colors">
-                 <span className="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">Investimento</span>
+                 <span className="block text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">{labels.investment}</span>
                  <span className="font-serif text-2xl text-jade-dark dark:text-white">{service.priceRange}</span>
               </div>
               
-              <p className="text-xs text-gray-400 dark:text-gray-500 italic mb-4">* Não oferecemos consultoria gratuita. O orçamento é enviado após a primeira reunião.</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 italic mb-4">{labels.disclaimer}</p>
 
               <div className="flex justify-end">
                 <Button href={CONTACT_INFO.whatsappLink} icon>
-                  Solicitar Orçamento
+                  {labels.button}
                 </Button>
               </div>
             </div>

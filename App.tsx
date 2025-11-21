@@ -11,11 +11,12 @@ import {
   X,
   Moon,
   Sun,
-  ArrowUp
+  ArrowUp,
+  Globe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { CONTACT_INFO, SERVICES, TESTIMONIALS, FAQS, PORTFOLIO_IMAGES } from './constants';
+import { CONTACT_INFO, PORTFOLIO_IMAGES, TRANSLATIONS } from './constants';
 import { Service } from './types';
 import { Button } from './components/Button';
 import { ServiceModal } from './components/ServiceModal';
@@ -35,6 +36,7 @@ const WhatsAppIcon = ({ size = 24, className = "" }: { size?: number, className?
 );
 
 function App() {
+  const [language, setLanguage] = useState<'pt' | 'en'>('pt');
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [isTestimonialHovered, setIsTestimonialHovered] = useState(false);
@@ -42,6 +44,8 @@ function App() {
   const [activeServiceFilter, setActiveServiceFilter] = useState('all');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const t = TRANSLATIONS[language];
 
   // Theme Toggle Logic
   useEffect(() => {
@@ -65,6 +69,10 @@ function App() {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(prev => prev === 'pt' ? 'en' : 'pt');
   };
 
   // Scroll to top visibility logic
@@ -99,24 +107,24 @@ function App() {
     let interval: ReturnType<typeof setInterval>;
     if (!isTestimonialHovered) {
       interval = setInterval(() => {
-        setTestimonialIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+        setTestimonialIndex((prev) => (prev + 1) % t.testimonials.length);
       }, 4000);
     }
     return () => clearInterval(interval);
-  }, [isTestimonialHovered]);
+  }, [isTestimonialHovered, t.testimonials.length]);
 
   const toggleFaq = (index: number) => {
     setOpenFaqId(openFaqId === index ? null : index);
   };
 
   const serviceFilters = [
-    { id: 'all', label: 'Todos' },
-    { id: 'casamento', label: 'Casamentos' },
-    { id: 'social', label: '15 Anos & Bodas' },
-    { id: 'corporativo', label: 'Corporativo' },
+    { id: 'all', label: t.ui.services.filters.all },
+    { id: 'casamento', label: t.ui.services.filters.wedding },
+    { id: 'social', label: t.ui.services.filters.social },
+    { id: 'corporativo', label: t.ui.services.filters.corporate },
   ];
 
-  const filteredServices = SERVICES.filter(service => 
+  const filteredServices = t.services.filter(service => 
     activeServiceFilter === 'all' || service.categories.includes(activeServiceFilter)
   );
 
@@ -135,12 +143,22 @@ function App() {
           
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-8 text-sm uppercase tracking-wider text-gray-600 dark:text-gray-300 font-bold">
-              <a href="#sobre" className="hover:text-jade-primary dark:hover:text-jade-primary transition-colors">Sobre</a>
-              <a href="#servicos" className="hover:text-jade-primary dark:hover:text-jade-primary transition-colors">Serviços</a>
-              <a href="#portfolio" className="hover:text-jade-primary dark:hover:text-jade-primary transition-colors">Portfólio</a>
+              <a href="#sobre" className="hover:text-jade-primary dark:hover:text-jade-primary transition-colors">{t.ui.nav.about}</a>
+              <a href="#servicos" className="hover:text-jade-primary dark:hover:text-jade-primary transition-colors">{t.ui.nav.services}</a>
+              <a href="#portfolio" className="hover:text-jade-primary dark:hover:text-jade-primary transition-colors">{t.ui.nav.portfolio}</a>
             </div>
 
             <div className="flex items-center gap-4">
+              {/* Language Toggle */}
+              <button
+                onClick={toggleLanguage}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-jade-dark dark:text-jade-secondary transition-colors font-bold text-xs flex items-center gap-1"
+                aria-label="Switch Language"
+              >
+                <Globe size={16} />
+                <span>{language.toUpperCase()}</span>
+              </button>
+
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 text-jade-dark dark:text-jade-secondary transition-colors"
@@ -151,7 +169,7 @@ function App() {
               
               <div className="hidden md:block">
                 <Button href={CONTACT_INFO.whatsappLink} variant="primary" className="px-6 py-2 text-xs">
-                  Fale Conosco
+                  {t.ui.nav.contact}
                 </Button>
               </div>
             </div>
@@ -164,7 +182,7 @@ function App() {
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80" 
-            alt="Casal em celebração de casamento, momento emocionante e sofisticado" 
+            alt={language === 'pt' ? "Casal em celebração de casamento, momento emocionante e sofisticado" : "Couple in wedding celebration, emotional and sophisticated moment"}
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-black/40 dark:bg-black/60 transition-colors duration-500"></div>
@@ -177,7 +195,7 @@ function App() {
             transition={{ duration: 0.8 }}
             className="font-serif text-5xl md:text-7xl lg:text-8xl mb-6 leading-tight italic"
           >
-            {CONTACT_INFO.tagline}
+            {t.ui.hero.tagline}
           </motion.h1>
           <motion.p 
             initial={{ y: 20, opacity: 0 }}
@@ -185,7 +203,7 @@ function App() {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="text-lg md:text-xl font-light tracking-wide mb-10 opacity-90"
           >
-            Assessoria de eventos e cerimonial com 13 anos de experiência.
+            {t.ui.hero.subtitle}
           </motion.p>
           <motion.div
              initial={{ y: 20, opacity: 0 }}
@@ -193,7 +211,7 @@ function App() {
              transition={{ delay: 0.4, duration: 0.8 }}
           >
             <Button href={CONTACT_INFO.whatsappLink} variant="primary" icon>
-              Fale com a Jade
+              {t.ui.hero.cta}
             </Button>
           </motion.div>
         </div>
@@ -213,7 +231,7 @@ function App() {
               <div className="absolute -top-4 -left-4 w-full h-full border border-jade-primary rounded-sm z-0"></div>
               <img 
                 src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=600&q=80" 
-                alt="Jade Malaquias, mulher negra especialista em Assessoria de Eventos e Cerimonial com 13 anos de experiência" 
+                alt={t.ui.about.imageAlt}
                 className="relative z-10 w-full rounded-sm shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>
@@ -225,13 +243,13 @@ function App() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-jade-primary text-sm font-bold tracking-[0.2em] uppercase">Sobre Mim</span>
-            <h2 className="font-serif text-4xl md:text-5xl text-jade-dark dark:text-white">13 Anos de Paixão por Realizar Sonhos</h2>
+            <span className="text-jade-primary text-sm font-bold tracking-[0.2em] uppercase">{t.ui.about.badge}</span>
+            <h2 className="font-serif text-4xl md:text-5xl text-jade-dark dark:text-white">{t.ui.about.title}</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-light text-lg">
-              Com mais de uma década dedicada ao mercado de eventos, minha missão vai além da organização: é sobre <span className="italic font-serif text-jade-dark dark:text-jade-secondary">acolhimento</span> e <span className="italic font-serif text-jade-dark dark:text-jade-secondary">execução detalhista</span>.
+              {t.ui.about.p1}
             </p>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-light text-lg">
-              Transformo a ansiedade do planejamento em tranquilidade, garantindo que cada detalhe, do cronograma à decoração, reflita a essência única de quem celebra. A perfeição mora nos detalhes, e eu cuido de todos eles para você.
+              {t.ui.about.p2}
             </p>
             <div className="pt-4">
               <Button 
@@ -239,7 +257,7 @@ function App() {
                 href="#portfolio" 
                 onClick={handleScrollToPortfolio}
               >
-                Ver meu trabalho
+                {t.ui.about.cta}
               </Button>
             </div>
           </motion.div>
@@ -256,7 +274,7 @@ function App() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6 }}
           >
-             <h2 className="font-serif text-4xl text-jade-dark dark:text-white mb-4">Nossos Serviços</h2>
+             <h2 className="font-serif text-4xl text-jade-dark dark:text-white mb-4">{t.ui.services.title}</h2>
              <div className="w-16 h-0.5 bg-jade-primary mx-auto mb-8"></div>
              
              {/* Service Filters */}
@@ -301,14 +319,14 @@ function App() {
                   <h3 className="font-serif text-2xl mb-3 text-jade-dark dark:text-white">{service.title}</h3>
                   <p className="text-gray-500 dark:text-gray-300 mb-6 font-light text-sm leading-relaxed">{service.shortDescription}</p>
                   <span className="text-jade-primary text-xs font-bold uppercase tracking-wider mt-auto border-b border-jade-primary pb-1">
-                    Ver Detalhes
+                    {t.ui.services.card.details}
                   </span>
                 </motion.div>
               ))}
             </AnimatePresence>
             {filteredServices.length === 0 && (
                <div className="col-span-3 text-center py-12 text-gray-400 italic">
-                 Nenhum serviço encontrado para esta categoria.
+                 {t.ui.services.empty}
                </div>
             )}
           </div>
@@ -319,8 +337,8 @@ function App() {
       <section className="py-20 px-6 bg-white dark:bg-neutral-900 transition-colors duration-500">
         <div className="max-w-5xl mx-auto">
            <div className="text-center mb-16">
-             <span className="text-jade-primary text-xs font-bold tracking-widest uppercase">Passo a Passo</span>
-             <h2 className="font-serif text-3xl md:text-4xl mt-2 dark:text-white">Como Funciona</h2>
+             <span className="text-jade-primary text-xs font-bold tracking-widest uppercase">{t.ui.process.badge}</span>
+             <h2 className="font-serif text-3xl md:text-4xl mt-2 dark:text-white">{t.ui.process.title}</h2>
            </div>
            
            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
@@ -334,11 +352,11 @@ function App() {
              />
 
              {[
-               { icon: Phone, title: "Reunião Inicial", desc: "Entendemos seus sonhos e expectativas." },
-               { icon: CheckSquare, title: "Planejamento", desc: "Cronograma e orçamento definidos." },
-               { icon: Heart, title: "Fornecedores", desc: "Curadoria e contratação dos melhores." },
-               { icon: Star, title: "Grande Dia", desc: "Execução perfeita para você celebrar." }
-             ].map((step, idx) => (
+               { icon: Phone },
+               { icon: CheckSquare },
+               { icon: Heart },
+               { icon: Star }
+             ].map((stepIcon, idx) => (
                <motion.div 
                   key={idx} 
                   className="flex flex-col items-center text-center relative z-10"
@@ -350,8 +368,8 @@ function App() {
                   <div className="w-24 h-24 bg-jade-primary text-white rounded-full flex items-center justify-center text-5xl font-serif italic mb-4 shadow-lg border-4 border-white dark:border-neutral-900 transform transition-transform hover:scale-105">
                     {idx + 1}
                   </div>
-                  <h4 className="font-bold text-lg mb-2 dark:text-white">{step.title}</h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light">{step.desc}</p>
+                  <h4 className="font-bold text-lg mb-2 dark:text-white">{t.ui.process.steps[idx].title}</h4>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light">{t.ui.process.steps[idx].desc}</p>
                </motion.div>
              ))}
            </div>
@@ -367,8 +385,8 @@ function App() {
            viewport={{ once: true, margin: "-50px" }}
            transition={{ duration: 0.6 }}
          >
-            <h2 className="font-serif text-4xl md:text-5xl text-jade-dark dark:text-white italic mb-2">Portfólio</h2>
-            <p className="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-xs">Momentos reais, emoções eternas</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-jade-dark dark:text-white italic mb-2">{t.ui.portfolio.title}</h2>
+            <p className="text-gray-500 dark:text-gray-400 uppercase tracking-widest text-xs">{t.ui.portfolio.subtitle}</p>
          </motion.div>
          <motion.div
            initial={{ opacity: 0 }}
@@ -407,19 +425,19 @@ function App() {
                  className="absolute w-full max-w-2xl bg-white dark:bg-neutral-800 p-8 md:p-10 rounded-xl shadow-md border border-jade-secondary/20 dark:border-white/5 cursor-default"
                >
                  <p className="font-serif text-xl md:text-2xl italic text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">
-                   "{TESTIMONIALS[testimonialIndex].text}"
+                   "{t.testimonials[testimonialIndex].text}"
                  </p>
                  <div className="flex flex-col items-center gap-3">
                     <div className="w-14 h-14 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-2 border-jade-primary/30 shadow-sm">
                        <img 
-                        src={TESTIMONIALS[testimonialIndex].image} 
-                        alt={`Foto de ${TESTIMONIALS[testimonialIndex].name}, cliente feliz com a assessoria de Jade Malaquias`} 
+                        src={t.testimonials[testimonialIndex].image} 
+                        alt={`Foto de ${t.testimonials[testimonialIndex].name}, cliente feliz com a assessoria de Jade Malaquias`} 
                         className="w-full h-full object-cover"
                        />
                     </div>
                     <div className="flex flex-col items-center">
                       <p className="font-bold text-jade-dark dark:text-white uppercase tracking-wide text-sm mb-1">
-                        {TESTIMONIALS[testimonialIndex].name}
+                        {t.testimonials[testimonialIndex].name}
                       </p>
                       <div className="flex gap-1">
                         {[1,2,3,4,5].map(s => <Star key={s} size={12} className="fill-jade-primary text-jade-primary" />)}
@@ -431,7 +449,7 @@ function App() {
            </div>
 
            <div className="flex justify-center gap-2 mt-4">
-             {TESTIMONIALS.map((_, idx) => (
+             {t.testimonials.map((_, idx) => (
                <button
                  key={idx}
                  onClick={() => setTestimonialIndex(idx)}
@@ -456,10 +474,10 @@ function App() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="font-serif text-3xl md:text-5xl mb-6 italic">
-            "Quer viver o casamento dos seus sonhos com tranquilidade e perfeição em cada detalhe?"
+            {t.ui.ctaSecondary.text}
           </h2>
           <Button href={CONTACT_INFO.whatsappLink} variant="primary">
-            Fale com a Jade
+            {t.ui.ctaSecondary.button}
           </Button>
         </motion.div>
       </section>
@@ -473,7 +491,7 @@ function App() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Dúvidas Frequentes
+          {t.ui.faq.title}
         </motion.h2>
         <motion.div 
           className="space-y-4"
@@ -482,7 +500,7 @@ function App() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {FAQS.map((faq, idx) => (
+          {t.faqs.map((faq, idx) => (
             <div key={idx} className="border-b border-gray-100 dark:border-gray-800 pb-4">
               <button 
                 onClick={() => toggleFaq(idx)}
@@ -537,7 +555,7 @@ function App() {
          >
             <div>
                <h3 className="font-serif text-2xl text-white mb-2">Jade Malaquias</h3>
-               <p className="text-xs tracking-widest uppercase opacity-70">Assessoria & Cerimonial</p>
+               <p className="text-xs tracking-widest uppercase opacity-70">{t.ui.footer.role}</p>
             </div>
             
             <div className="flex flex-col items-center justify-center space-y-4">
@@ -563,7 +581,7 @@ function App() {
 
             <div className="text-center md:text-right text-sm opacity-50 font-light">
                <p>&copy; {new Date().getFullYear()} Jade Malaquias.</p>
-               <p>Todos os direitos reservados.</p>
+               <p>{t.ui.footer.rights}</p>
             </div>
          </motion.div>
       </footer>
@@ -573,6 +591,7 @@ function App() {
         isOpen={!!selectedService} 
         onClose={() => setSelectedService(null)} 
         service={selectedService} 
+        labels={t.ui.modal}
       />
     </div>
   );
