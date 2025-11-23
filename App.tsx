@@ -221,18 +221,18 @@ function App() {
       <section id="sobre" className="py-20 px-6 bg-white dark:bg-neutral-900 transition-colors duration-500">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <motion.div 
-            className="md:order-1"
+            className="md:order-1 flex justify-center"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative">
+            <div className="relative inline-block">
               <div className="absolute -top-4 -left-4 w-full h-full border border-jade-primary rounded-sm z-0"></div>
               <img 
-                src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=600&q=80" 
+                src="https://raw.githubusercontent.com/felipejaneiro-rgb/Jade-Malaquias-Eventos-e-Cerimonial/main/public/images/FotoJade.JPG" 
                 alt={t.ui.about.imageAlt}
-                className="relative z-10 w-full rounded-sm shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
+                className="relative z-10 w-auto max-w-full h-auto max-h-[700px] object-contain rounded-sm shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>
           </motion.div>
