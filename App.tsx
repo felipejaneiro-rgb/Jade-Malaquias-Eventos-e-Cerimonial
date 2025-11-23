@@ -230,9 +230,9 @@ function App() {
             <div className="relative inline-block">
               <div className="absolute -top-4 -left-4 w-full h-full border border-jade-primary rounded-sm z-0"></div>
               <img 
-                src="https://raw.githubusercontent.com/felipejaneiro-rgb/Jade-Malaquias-Eventos-e-Cerimonial/main/public/images/FotoJade.JPG" 
+                src="https://i.ibb.co/Mk3nqKFy/FotoJade.jpg" 
                 alt={t.ui.about.imageAlt}
-                className="relative z-10 w-auto max-w-full h-auto max-h-[700px] object-contain rounded-sm shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
+                className="relative z-10 block w-full max-w-[400px] md:max-w-[480px] h-auto object-contain rounded-sm shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>
           </motion.div>
