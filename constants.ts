@@ -120,7 +120,7 @@ export const TRANSLATIONS: Record<'pt' | 'en', TranslationData> = {
         contact: "Fale Conosco"
       },
       hero: {
-        tagline: "Transformando sonhos em realidade",
+        tagline: "Transformando seus sonhos em realidade",
         subtitle: "Assessoria de eventos e cerimonial com 13 anos de experiência.",
         cta: "Fale com a Jade"
       },

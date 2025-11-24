@@ -232,7 +232,7 @@ function App() {
               <img 
                 src="https://i.ibb.co/Mk3nqKFy/FotoJade.jpg" 
                 alt={t.ui.about.imageAlt}
-                className="relative z-10 block w-full max-w-[400px] md:max-w-[480px] h-auto object-contain rounded-sm shadow-lg grayscale hover:grayscale-0 transition-all duration-700"
+                className="relative z-10 block w-full max-w-[400px] md:max-w-[480px] h-auto object-contain rounded-sm shadow-lg transition-all duration-700"
               />
             </div>
           </motion.div>
