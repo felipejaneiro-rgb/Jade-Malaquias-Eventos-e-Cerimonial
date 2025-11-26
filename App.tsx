@@ -334,21 +334,49 @@ function App() {
       </section>
 
       {/* 4. Process Section */}
-      <section className="py-20 px-6 bg-white dark:bg-neutral-900 transition-colors duration-500">
+      <section className="py-24 px-6 bg-white dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
         <div className="max-w-5xl mx-auto">
-           <div className="text-center mb-16">
+           <motion.div 
+             className="text-center mb-16"
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.6 }}
+           >
              <span className="text-jade-primary text-xs font-bold tracking-widest uppercase">{t.ui.process.badge}</span>
              <h2 className="font-serif text-3xl md:text-4xl mt-2 dark:text-white">{t.ui.process.title}</h2>
-           </div>
+           </motion.div>
            
-           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+           <motion.div 
+             className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 relative"
+             initial="hidden"
+             whileInView="visible"
+             viewport={{ once: true, margin: "-100px" }}
+             variants={{
+               hidden: {},
+               visible: {
+                 transition: {
+                   staggerChildren: 0.3
+                 }
+               }
+             }}
+           >
              {/* Connecting Line (Desktop) */}
              <motion.div 
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
+                initial={{ width: 0 }}
+                whileInView={{ width: '75%' }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="hidden md:block absolute top-12 left-[12.5%] w-[75%] h-0.5 bg-jade-primary z-0 origin-left"
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="hidden md:block absolute top-12 left-[12.5%] h-0.5 bg-jade-primary z-0"
+             />
+
+             {/* Connecting Line (Mobile) */}
+             <motion.div 
+                initial={{ height: 0 }}
+                whileInView={{ height: '80%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="md:hidden absolute top-12 left-1/2 -translate-x-1/2 w-0.5 bg-jade-primary z-0"
              />
 
              {[
@@ -356,23 +384,35 @@ function App() {
                { icon: CheckSquare },
                { icon: Heart },
                { icon: Star }
-             ].map((stepIcon, idx) => (
+             ].map((step, idx) => (
                <motion.div 
                   key={idx} 
-                  className="flex flex-col items-center text-center relative z-10"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.7, delay: idx * 0.2, ease: "easeOut" }}
+                  className="flex flex-col items-center text-center relative z-10 group"
+                  variants={{
+                    hidden: { opacity: 0, y: 50, scale: 0.8 },
+                    visible: { 
+                      opacity: 1, 
+                      y: 0, 
+                      scale: 1,
+                      transition: { 
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20
+                      }
+                    }
+                  }}
                >
-                  <div className="w-24 h-24 bg-jade-primary text-white rounded-full flex items-center justify-center text-5xl font-serif italic mb-4 shadow-lg border-4 border-white dark:border-neutral-900 transform transition-transform hover:scale-105">
+                  <motion.div 
+                    whileHover={{ scale: 1.1, rotate: 5, borderColor: "#D4AF37" }}
+                    className="w-24 h-24 bg-jade-primary text-white rounded-full flex items-center justify-center text-5xl font-serif italic mb-6 shadow-xl border-4 border-white dark:border-neutral-900 dark:bg-jade-primary relative z-10 transition-colors"
+                  >
                     {idx + 1}
-                  </div>
+                  </motion.div>
                   <h4 className="font-bold text-lg mb-2 dark:text-white">{t.ui.process.steps[idx].title}</h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light">{t.ui.process.steps[idx].desc}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light max-w-[200px]">{t.ui.process.steps[idx].desc}</p>
                </motion.div>
              ))}
-           </div>
+           </motion.div>
         </div>
       </section>
 
@@ -407,7 +447,13 @@ function App() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8 }}
         >
-           <Heart className="w-10 h-10 text-jade-primary mx-auto mb-8 fill-current opacity-50" />
+           <motion.div
+             animate={{ scale: [1, 1.15, 1] }}
+             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+             className="inline-block mb-8"
+           >
+             <Heart className="w-10 h-10 text-jade-primary fill-current opacity-50" />
+           </motion.div>
            
            <div 
              className="relative h-[400px] md:h-[320px] flex items-center justify-center"
