@@ -265,7 +265,8 @@ function App() {
       </section>
 
       {/* 3. Services Section */}
-      <section id="servicos" className="py-20 px-6 bg-jade-rose dark:bg-neutral-950 transition-colors duration-500">
+      {/* Changed background to a gradient to smooth transition from 'About' section */}
+      <section id="servicos" className="py-20 px-6 bg-gradient-to-b from-white to-jade-rose dark:from-neutral-900 dark:to-neutral-950 transition-colors duration-500">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="text-center mb-10"
@@ -334,7 +335,7 @@ function App() {
       </section>
 
       {/* 4. Process Section */}
-      <section className="py-24 px-6 bg-white dark:bg-neutral-900 transition-colors duration-500 overflow-hidden">
+      <section className="py-24 px-6 bg-gradient-to-b from-jade-rose to-white dark:from-neutral-950 dark:to-neutral-900 transition-colors duration-500 overflow-hidden">
         <div className="max-w-5xl mx-auto">
            <motion.div 
              className="text-center mb-16"
