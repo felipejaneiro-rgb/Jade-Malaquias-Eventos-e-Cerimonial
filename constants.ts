@@ -4,7 +4,8 @@ export const CONTACT_INFO = {
   name: "Jade Malaquias",
   instagram: "@jademalaquiaseventos",
   phone: "+55 27 99904-8414",
-  whatsappLink: "https://wa.me/5527999048414",
+  // Added ?text parameter with URL encoded message: "Oi, vim pelo seu site e gostaria de agendar uma consultoria para o meu evento."
+  whatsappLink: "https://wa.me/5527999048414?text=Oi%2C%20vim%20pelo%20seu%20site%20e%20gostaria%20de%20agendar%20uma%20consultoria%20para%20o%20meu%20evento.",
 };
 
 export const PORTFOLIO_IMAGES: PortfolioItem[] = [
