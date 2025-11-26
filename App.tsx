@@ -370,13 +370,13 @@ function App() {
                 className="hidden md:block absolute top-12 left-[12.5%] h-0.5 bg-jade-primary z-0"
              />
 
-             {/* Connecting Line (Mobile) */}
+             {/* Connecting Line (Mobile) - Positioned on the left (behind bubbles) */}
              <motion.div 
                 initial={{ height: 0 }}
                 whileInView={{ height: '80%' }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="md:hidden absolute top-12 left-1/2 -translate-x-1/2 w-0.5 bg-jade-primary z-0"
+                className="md:hidden absolute top-12 left-[3rem] w-0.5 bg-jade-primary z-0"
              />
 
              {[
@@ -387,7 +387,7 @@ function App() {
              ].map((step, idx) => (
                <motion.div 
                   key={idx} 
-                  className="flex flex-col items-center text-center relative z-10 group"
+                  className="flex flex-row md:flex-col items-center md:items-center text-left md:text-center gap-6 md:gap-0 relative z-10 group"
                   variants={{
                     hidden: { opacity: 0, y: 50, scale: 0.8 },
                     visible: { 
@@ -404,12 +404,14 @@ function App() {
                >
                   <motion.div 
                     whileHover={{ scale: 1.1, rotate: 5, borderColor: "#D4AF37" }}
-                    className="w-24 h-24 bg-jade-primary text-white rounded-full flex items-center justify-center text-5xl font-serif italic mb-6 shadow-xl border-4 border-white dark:border-neutral-900 dark:bg-jade-primary relative z-10 transition-colors"
+                    className="w-24 h-24 flex-shrink-0 bg-jade-primary text-white rounded-full flex items-center justify-center text-5xl font-serif italic mb-0 md:mb-6 shadow-xl border-4 border-white dark:border-neutral-900 dark:bg-jade-primary relative z-10 transition-colors"
                   >
                     {idx + 1}
                   </motion.div>
-                  <h4 className="font-bold text-lg mb-2 dark:text-white">{t.ui.process.steps[idx].title}</h4>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light max-w-[200px]">{t.ui.process.steps[idx].desc}</p>
+                  <div className="flex flex-col">
+                    <h4 className="font-bold text-lg mb-2 dark:text-white">{t.ui.process.steps[idx].title}</h4>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 font-light max-w-[200px]">{t.ui.process.steps[idx].desc}</p>
+                  </div>
                </motion.div>
              ))}
            </motion.div>
