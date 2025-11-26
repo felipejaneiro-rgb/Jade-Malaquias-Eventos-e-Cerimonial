@@ -442,7 +442,7 @@ function App() {
       </section>
 
       {/* 6. Testimonials Section */}
-      <section className="py-20 px-6 bg-jade-primary/5 dark:bg-jade-primary/10 transition-colors duration-500">
+      <section className="py-20 px-6 bg-gradient-to-b from-zinc-300 via-jade-light via-15% to-jade-primary/10 dark:from-black dark:via-neutral-900 dark:via-15% dark:to-neutral-900 transition-colors duration-500">
         <motion.div 
           className="max-w-4xl mx-auto text-center"
           initial={{ opacity: 0, y: 40 }}
