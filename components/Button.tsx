@@ -15,11 +15,13 @@ export const Button: React.FC<ButtonProps> = ({
   href,
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center px-8 py-3 transition-all duration-300 text-sm uppercase tracking-widest font-sans font-bold rounded-sm";
+  // Base styles removed padding/rounding to allow variants to control shape
+  const baseStyles = "inline-flex items-center justify-center transition-all duration-300 text-sm uppercase tracking-widest font-sans font-bold";
   
   const variants = {
-    primary: "bg-jade-primary text-white hover:bg-[#BFA030] shadow-lg hover:shadow-xl",
-    outline: "border border-jade-primary text-jade-primary hover:bg-jade-primary hover:text-white",
+    // Added rounded-xl and hover:-translate-y-0.5 for subtle lift
+    primary: "bg-jade-primary text-white hover:bg-[#BFA030] shadow-lg hover:shadow-xl rounded-xl hover:-translate-y-0.5 px-8 py-3",
+    outline: "border border-jade-primary text-jade-primary hover:bg-jade-primary hover:text-white rounded-xl hover:-translate-y-0.5 px-8 py-3",
     text: "text-jade-primary hover:text-[#BFA030] px-0 underline-offset-4 hover:underline"
   };
 
@@ -30,6 +32,8 @@ export const Button: React.FC<ButtonProps> = ({
     </>
   );
 
+  const buttonClasses = `${baseStyles} ${variants[variant]} ${className}`;
+
   if (href) {
     const isInternal = href.startsWith('#');
     return (
@@ -37,7 +41,7 @@ export const Button: React.FC<ButtonProps> = ({
         href={href} 
         target={isInternal ? undefined : "_blank"}
         rel={isInternal ? undefined : "noopener noreferrer"}
-        className={`${baseStyles} ${variants[variant]} ${className}`}
+        className={buttonClasses}
       >
         {content}
       </a>
@@ -46,7 +50,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button 
-      className={`${baseStyles} ${variants[variant]} ${className}`}
+      className={buttonClasses}
       {...props}
     >
       {content}
