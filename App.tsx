@@ -420,7 +420,7 @@ function App() {
       </section>
 
       {/* 5. Portfolio Section (3D Carousel) */}
-      <section id="portfolio" className="py-24 bg-gradient-to-b from-white to-zinc-100 dark:from-neutral-900 dark:to-black transition-colors duration-500 overflow-hidden">
+      <section id="portfolio" className="py-24 bg-gradient-to-b from-white via-zinc-100 to-zinc-100 dark:from-neutral-900 dark:via-black dark:to-black transition-colors duration-500 overflow-hidden">
          <motion.div 
            className="text-center mb-12 px-6"
            initial={{ opacity: 0, y: 30 }}
